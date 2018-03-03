@@ -19,8 +19,8 @@ function fromCoord(coord) { return { x: coord % size.width, y: Math.floor(coord 
 function mod(x, m) { return ((x % m) + m) % m; }
 function move(pos, dir) {
     return {
-        x: mod(pos.x + (1 - dir % 2) * (1 - dir), size.width),
-        y: mod(pos.y + (dir % 2) * (2 - dir), size.height)
+        x: Math.floor(mod(pos.x + (1 - dir % 2) * (1 - dir), size.width)),
+        y: Math.floor(mod(pos.y + (dir % 2) * (2 - dir), size.height))
     };
 }
 
