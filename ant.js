@@ -30,11 +30,11 @@ var heats = null;
 function displayMode(type) {
     drawType = type;
     if (type == 'colour') {
-        colCanvas.style.display = '';
-        heatCanvas.style.display = 'none';
+        colCanvas.style.opacity = 1;
+        heatCanvas.style.opacity = 0;
     } else {
-        colCanvas.style.display = 'none';
-        heatCanvas.style.display = '';
+        colCanvas.style.opacity = 0;
+        heatCanvas.style.opacity = 1;
     }
 }
 
@@ -208,7 +208,7 @@ function init() {
     heats = Array(size.width * size.height).fill(0);
     
     drawType = 'colour';
-    heatCanvas.style.display = 'none';
+    heatCanvas.style.opacity = 0;
     iterationsPerFrame = 1;
     direction = 'forwards';
     

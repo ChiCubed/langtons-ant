@@ -117,13 +117,43 @@ nav > .btn:last-child, nav > *:last-child {
     border-bottom-right-radius: 5px;
 }
 
+.controls {
+    min-width: 200px;
+    margin-left: 20px;
+    float: left;
+}
+
 .canvas-container {
-	margin: 0 auto;
-	text-align: center;
+    margin-left: 5%;
+    max-width: 50%;
+    width: 1000px;
+    height: 1000px;
+    max-height: 50vw;
+    text-align: left;
+    float: left;
+}
+
+.inner-canvas-container {
+    position: relative;
 }
 
 canvas {
 	height: auto;
     outline: 1px solid white;
-    max-width: 70%;
+    width: 100%;
+}
+
+@media (max-width: 750px) {
+    .controls {
+        margin: 0 auto;
+        text-align: center;
+        float: none;
+    }
+    
+    .canvas-container {
+        margin: 0 auto;
+        max-width: 80%;
+        max-height: 80vw;
+        float: none;
+    }
 }
