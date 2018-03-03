@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <title>Langton's Ant</title>
+        
+        <script src="ant.js"></script>
+        <script src="handlers.js"></script>
+        
+        <link rel="stylesheet" href="style.css"/>
+    </head>
+    <body onload = "init()">
+        <h1>Langton's Ant</h1>
+        <p class="subtitle">Created by <a href="https://github.com/ChiCubed">@ChiCubed</a></p>
+        <div class="canvas-container">
+            <canvas id="col-canvas"></canvas>
+            <canvas id="heat-canvas"></canvas>
+        </div>
+        <br>
+        <nav>
+            <button onclick="togglePlay()" id="toggle-play-btn">Start</button>
+            <button onclick="invertAnts()" id="invert-ants-btn">Invert</button>
+            <button onclick="restart()">Restart</button>
+        </nav>
+        <br>
+        <nav>
+            <form onsubmit="setRule(); return false">
+                <span class="info-text">Enter a rule:</span>
+                <input type="text" pattern="(R|L)+" value="RL" id="rule-input" placeholder="e.g. RLR"/>
+            </form>
+        </nav>
+        <nav>
+            <span class="info-text">Display mode:</span>
+            <button onclick="displayMode('colour')">Colours</button>
+            <button onclick="displayMode('heatmap')">Heatmap</button>
+        </nav>
+        <br>
+        <div class="center">
+            <span class="info-text">Iterations per frame:</span>
+            <input type="range" id="iters-per-frame" min="1" max="10000" step="1" value="1" onchange="updateItersPerFrame(this)"/>
+            <span class="info-text" id="iters-per-frame-display">1</span>
+        </div>
+    </body>
+</html>

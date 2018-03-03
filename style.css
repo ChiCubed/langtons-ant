@@ -1,0 +1,129 @@
+/* Font families */
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+	background-color: black;
+}
+
+h1 {
+	color: white;
+
+	font-family: Lato;
+	font-size: 50px;
+	text-align: center;
+}
+
+p {
+	color: white;
+
+	font-family: Roboto;
+	font-size: 14px;
+	text-align: left;
+}
+
+p.subtitle {
+	text-align: center;
+	margin-top: -30px;
+}
+
+a {
+	color: lightblue;
+	text-decoration: none;
+}
+
+a:hover {
+	color: lightskyblue;
+}
+
+button, .btn {
+	background-color: black;
+	color: white;
+	border: 1px solid white;
+
+	text-align: center;
+	font-family: Roboto;
+	font-size: 14px;
+
+	padding: 5px;
+	border-radius: 5px;
+
+    -webkit-transition: padding .2s ease;
+       -moz-transition: padding .2s ease;
+         -o-transition: padding .2s ease;
+            transition: padding .2s ease;
+}
+
+button:disabled {
+	color: grey;
+	border-color: grey;
+}
+
+button:disabled:hover {
+	color: grey;
+	cursor: default;
+
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+button:hover, .btn:hover {
+	color: lightblue;
+	cursor: pointer;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+button:active, .btn:active {
+	border-color: lightblue;
+}
+
+button.center, .btn.center {
+	margin: 10px auto;
+	display: block;
+}
+
+button:focus, .btn:focus {
+	outline: none;
+}
+
+span.info-text {
+    color: white;
+
+    font-size: 13px;
+    font-family: Roboto;
+}
+
+div.center {
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+}
+
+nav > .btn, nav > * {
+    border-radius: 0px;
+}
+
+nav > .btn:first-child, nav > *:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+nav > .btn:last-child, nav > *:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.canvas-container {
+	margin: 0 auto;
+	text-align: center;
+}
+
+canvas {
+	height: auto;
+    outline: 1px solid white;
+    max-width: 70%;
+}
