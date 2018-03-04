@@ -54,6 +54,12 @@
                 <button onclick="addAnt()">Add Ant</button>
             </nav>
             <br>
+            <nav>
+                <span class="info-text">Save Image:</span>
+                <button onclick="saveColImg()">Colour</button>
+                <button onclick="saveHeatImg()">Heatmap</button>
+            </nav>
+            <br>
             <div class="center">
                 <span class="info-text">Iterations per frame: </span>
                 <input type="range" id="iters-per-frame" min="-5" max="14" step="1" value="0" onchange="updateItersPerFrame(this)"/>

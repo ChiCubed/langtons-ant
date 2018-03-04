@@ -167,6 +167,27 @@ function clearCanvases() {
     heatCtx.fillRect(0, 0, heatCanvas.width, heatCanvas.height);
 }
 
+// save images
+function saveColImg() {
+    var link = document.createElement("a");
+    link.download = 'col.png';
+    
+    colCanvas.toBlob(function(blob) {
+        link.href = URL.createObjectURL(blob);
+        link.click();
+    }, 'image/png');
+}
+
+function saveHeatImg() {
+    var link = document.createElement("a");
+    link.download = 'heat.png';
+    
+    heatCanvas.toBlob(function(blob) {
+        link.href = URL.createObjectURL(blob);
+        link.click();
+    }, 'image/png');
+}
+
 // reset ants to their positions in the table
 function resetAnts() {
     ants = {};
