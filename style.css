@@ -36,6 +36,34 @@ a:hover {
 	color: lightskyblue;
 }
 
+table {
+    color: white;
+    
+    font-family: Roboto;
+    font-size: 14px;
+    text-align: left;
+    
+    border-collapse: collapse;
+    
+    width: 300px;
+    
+    margin: 0 auto;
+}
+
+tr:first-child {
+    border-bottom: 1px solid white;
+}
+
+th {
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    padding: 5px;
+    text-align: center;
+}
+
 button, .btn {
 	background-color: black;
 	color: white;
@@ -143,7 +171,7 @@ canvas {
     width: 100%;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 800px) {
     .controls {
         margin: 0 auto;
         text-align: center;

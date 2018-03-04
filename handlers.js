@@ -1,8 +1,9 @@
 function updateItersPerFrame(slider) {
     var infoText = document.getElementById('iters-per-frame-display');
     
-    infoText.innerHTML = slider.value;
-    iterationsPerFrame = slider.value;
+    if (slider.value < 0) infoText.innerHTML = '1/' + Math.pow(2, -slider.value);
+    else infoText.innerHTML = Math.pow(2, slider.value);
+    logIterationsPerFrame = slider.value;
 }
 
 function setRule() {

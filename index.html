@@ -25,6 +25,12 @@
             </nav>
             <br>
             <nav>
+                <form onsubmit="stepNTimes(); return false">
+                    <span class="info-text">Perform N steps:</span>
+                    <input type="number" id="num-steps" min="1" max="1000000" step="1" value="1"/>
+                </form>
+            </nav>
+            <nav>
                 <form onsubmit="setRule(); return false">
                     <span class="info-text">Enter a rule:</span>
                     <input type="text" pattern="(R|L)+" value="RL" id="rule-input" placeholder="e.g. RLR"/>
@@ -36,9 +42,21 @@
                 <button onclick="displayMode('heatmap')">Heatmap</button>
             </nav>
             <br>
+            <table id="ants-table">
+                <tr>
+                    <th>Position</th>
+                    <th>Direction</th>
+                    <th>Delete</th>
+                </tr>
+            </table>
+            <br>
+            <nav>
+                <button onclick="addAnt()">Add Ant</button>
+            </nav>
+            <br>
             <div class="center">
-                <span class="info-text">Iterations per frame:</span>
-                <input type="range" id="iters-per-frame" min="1" max="10000" step="1" value="1" onchange="updateItersPerFrame(this)"/>
+                <span class="info-text">Iterations per frame: </span>
+                <input type="range" id="iters-per-frame" min="-5" max="14" step="1" value="0" onchange="updateItersPerFrame(this)"/>
                 <span class="info-text" id="iters-per-frame-display">1</span>
             </div>
         </div>
