@@ -25,7 +25,7 @@ function fromCoord(coord) { return { x: coord % size.width, y: Math.floor(coord 
 function mod(x, m) { return ((x % m) + m) % m; }
 function move(pos, dir) {
     return {
-        x: Math.floor(mod(pos.x + (dir % 2) * (dir - 2), size.width)),
+        x: Math.floor(mod(pos.x + (dir % 2) * (2 - dir), size.width)),
         y: Math.floor(mod(pos.y + (1 - dir % 2) * (dir - 1), size.height))
     };
 }
