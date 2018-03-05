@@ -31,16 +31,29 @@
                 </form>
             </nav>
             <nav>
-                <form onsubmit="setRule(); return false">
+                <form onsubmit="setRule(); return false" id="rule-form">
                     <span class="info-text">Enter a rule:</span>
-                    <input type="text" pattern="(R|L)+" value="RL" id="rule-input" placeholder="e.g. RLR"/>
+                    <input type="text" pattern="(R|L)+" value="RL" id="rule-input" oninput="submitRuleForm()" placeholder="e.g. RLR" required/>
+					<button type="submit" id="dummy-submit" form="rule-form" style="display: none"></button>
                 </form>
             </nav>
             <nav>
                 <span class="info-text">Display mode:</span>
-                <button onclick="displayMode('colour')">Colours</button>
+                <button onclick="displayMode('colour')">Colour</button>
                 <button onclick="displayMode('heatmap')">Heatmap</button>
             </nav>
+			<br>
+            <nav>
+                <span class="info-text">Save Image:</span>
+                <button onclick="saveColImg()">Colour</button>
+                <button onclick="saveHeatImg()">Heatmap</button>
+            </nav>
+            <br>
+            <div class="center">
+                <span class="info-text">Iterations per frame: </span>
+                <input type="range" id="iters-per-frame" min="-5" max="14" step="1" value="0" onchange="updateItersPerFrame(this)"/>
+                <span class="info-text" id="iters-per-frame-display">1</span>
+            </div>
             <br>
             <table id="ants-table">
                 <tr>
@@ -53,18 +66,6 @@
             <nav>
                 <button onclick="addAnt()">Add Ant</button>
             </nav>
-            <br>
-            <nav>
-                <span class="info-text">Save Image:</span>
-                <button onclick="saveColImg()">Colour</button>
-                <button onclick="saveHeatImg()">Heatmap</button>
-            </nav>
-            <br>
-            <div class="center">
-                <span class="info-text">Iterations per frame: </span>
-                <input type="range" id="iters-per-frame" min="-5" max="14" step="1" value="0" onchange="updateItersPerFrame(this)"/>
-                <span class="info-text" id="iters-per-frame-display">1</span>
-            </div>
         </div>
     </body>
 </html>

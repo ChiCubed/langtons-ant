@@ -25,8 +25,8 @@ function fromCoord(coord) { return { x: coord % size.width, y: Math.floor(coord 
 function mod(x, m) { return ((x % m) + m) % m; }
 function move(pos, dir) {
     return {
-        x: Math.floor(mod(pos.x + (1 - dir % 2) * (1 - dir), size.width)),
-        y: Math.floor(mod(pos.y + (dir % 2) * (2 - dir), size.height))
+        x: Math.floor(mod(pos.x + (dir % 2) * (dir - 2), size.width)),
+        y: Math.floor(mod(pos.y + (1 - dir % 2) * (dir - 1), size.height))
     };
 }
 
@@ -36,11 +36,11 @@ var heats = null;
 function displayMode(type) {
     drawType = type;
     if (type == 'colour') {
-        colCanvas.style.opacity = 1;
-        heatCanvas.style.opacity = 0;
+        colCanvas.style.display = '';
+		heatCanvas.style.display = 'none';
     } else {
-        colCanvas.style.opacity = 0;
-        heatCanvas.style.opacity = 1;
+        colCanvas.style.display = 'none';
+		heatCanvas.style.display = '';
     }
 }
 
@@ -121,7 +121,7 @@ function renderUpdates() {
         if (heat < 0) {
             heatCtx.fillStyle = "rgba("+intensity+","+Math.floor(intensity/2)+",0,1)";
         } else {
-            heatCtx.fillStyle = "rgba("+intensity+","+intensity+","+intensity+",1)"
+            heatCtx.fillStyle = "rgba("+intensity+","+intensity+","+intensity+",1)";
         }
         heatCtx.fillRect(x, y, 1, 1);
     }
@@ -276,13 +276,13 @@ function setSize(width, height) {
     for (var i = 1; i < table.rows.length; ++i) {
         var row = table.rows[i];
         var pos = row.children[0];
-        pos.children[0].value = style.width / 2;
-        pos.children[1].value = style.height / 2;
+        pos.children[0].value = size.width / 2;
+        pos.children[1].value = size.height / 2;
     }
     
     for (var i in ants) {
         if (ants.hasOwnProperty(i)) {
-            ants[i].pos = {x: style.width / 2, y: style.height / 2};
+            ants[i].pos = {x: size.width / 2, y: size.height / 2};
         }
     }
 }
@@ -339,7 +339,7 @@ function addAnt() {
         if (currD.value < 0) currD.value = 0;
         if (currD.value > 3) currD.value = 3;
         ants[currID].dir = Number(currD.value);
-    }
+    };
     
     dir.appendChild(dInput);
     
@@ -352,7 +352,7 @@ function addAnt() {
         delete ants[this.dataset.antid];
         row.parentNode.removeChild(row);
         renderUpdates();
-    }
+    };
     delBtn.style.borderColor = 'red';
     
     del.appendChild(delBtn);
@@ -376,7 +376,7 @@ function init() {
     heats = Array(size.width * size.height).fill(0);
     
     drawType = 'colour';
-    heatCanvas.style.opacity = 0;
+    heatCanvas.style.display = 'none';
     logIterationsPerFrame = 0;
     direction = 'forwards';
     

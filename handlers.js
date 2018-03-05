@@ -11,3 +11,11 @@ function setRule() {
     
     parseRule(rule);
 }
+
+// Modifies the rule as much as possible
+// to prevent confusing behaviour.
+function submitRuleForm() {
+	// let's fake submit
+
+	document.getElementById('dummy-submit').click();
+}
