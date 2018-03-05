@@ -66,7 +66,7 @@ function parseRule(rule) {
 
 // This function modifies the global 'updates'
 // array of updates to be made.
-function stepOnce() {
+function stepOnce(storeUpdates) {
     var colUpdates = [];
     for (var i in ants) if (ants.hasOwnProperty(i)) {
         if (direction == 'forwards') {
@@ -96,7 +96,7 @@ function stepOnce() {
             cols[colUpdates[i]] = mod(cols[colUpdates[i]] - 1, rules.length);
         }
 
-        updates.push(colUpdates[i]);
+        if (storeUpdates) updates.push(colUpdates[i]);
     }
 }
 
@@ -144,10 +144,10 @@ function render(time) {
     if (logIterationsPerFrame < 0) {
         // check if we've had enough frames
         if (currFrame - lastRenderFrame >= Math.pow(2, -logIterationsPerFrame)) {
-            stepOnce();
+            stepOnce(true);
             lastRenderFrame = currFrame;
         }
-    } else for (var _ = 0; _ < Math.pow(2, logIterationsPerFrame); ++_) stepOnce();
+    } else for (var _ = 0; _ < Math.pow(2, logIterationsPerFrame); ++_) stepOnce(true);
     
     renderUpdates();
     
@@ -250,8 +250,22 @@ function stepNTimes() {
     // add initial ant locations to handle backwards - need to overwrite these squares as well
     for (var i in ants) if (ants.hasOwnProperty(i)) updates.push(getCoord(ants[i].pos));
     
-    for (var i = 0; i < nSteps; ++i) stepOnce();
+	var storeUpdates = (nSteps < size.width * size.height);
+
+    for (var i = 0; i < nSteps; ++i) {
+		stepOnce(storeUpdates);
+	}
     
+	if (!storeUpdates) {
+		// add every cell to list of updates
+		updates = [];
+		for (var i = 0; i < size.width; ++i) {
+			for (var j = 0; j < size.height; ++j) {
+				updates.push(getCoord({x: i, y: j}));
+			}
+		}
+	}
+
     renderUpdates();
 }
 
@@ -287,6 +301,48 @@ function setSize(width, height) {
     }
 
 	restart();
+}
+
+function addImage(img) {
+	// draw to canvas
+	var colCtx = colCanvas.getContext('2d');
+
+	colCtx.drawImage(img, 0, 0);
+
+	// Get pixel data, put it into col
+	var data = colCtx.getImageData(0, 0, size.width, size.height).data;
+	for (var i = 0; i < size.width * size.height; ++i) {
+		// for now, just use red component
+		cols[i] = data[4 * i];
+	}
+
+	// duplicate 'rules' until
+	// it has length 256
+	var len = rules.length;
+	for (var i = len; i < 256; ++i) {
+		rules.push(rules[i - len]);
+	}
+
+	// cull 'rules' to length 256
+	rules.length = 256;
+
+	// modify the value of the rule input
+	// to reflect this
+	var input = document.getElementById('rule-input');
+	var txt = '';
+	for (var i = 0; i < 256; ++i) {
+		if (rules[i] == 1) txt += 'R';
+		else txt += 'L';
+	}
+
+	input.value = txt;
+
+	// also modify size inputs
+	var widthInput = document.getElementById('size-width-input');
+	var heightInput = document.getElementById('size-height-input');
+
+	widthInput.value = size.width;
+	heightInput.value = size.height;
 }
 
 function addAnt() {

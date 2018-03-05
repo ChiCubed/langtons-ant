@@ -145,6 +145,24 @@ nav > .btn:last-child, nav > *:last-child {
     border-bottom-right-radius: 5px;
 }
 
+.btn-file {
+    position: relative;
+    overflow: hidden;
+
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.btn-file input[type=file] {
+    display: none;
+}
+
+input {
+	font-family: Roboto;
+	font-size: 14px;
+	text-align: left;
+}
+
 .controls {
     min-width: 200px;
     margin-left: 20px;

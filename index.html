@@ -25,7 +25,7 @@
             <nav>
                 <form onsubmit="stepNTimes(); return false">
                     <span class="info-text">Perform N steps:</span>
-                    <input type="number" id="num-steps" min="1" max="1000000" step="1" value="1"/>
+                    <input type="number" id="num-steps" min="1" max="1000000000" step="1" value="1"/>
                 </form>
             </nav>
             <nav>
@@ -38,8 +38,8 @@
 			<nav>
 				<form onsubmit="setSizeFromForm(); return false" id="size-form">
 					<span class="info-text">Enter size:</span>
-					<input type="number" min="1" max="2000" value="500" placeholder="width" id="size-width-input" required/>
-					<input type="number" min="1" max="2000" value="500" placeholder="height" id="size-height-input" required/>
+					<input type="number" min="1" value="500" placeholder="width" id="size-width-input" style="width: 75px" required/>
+					<input type="number" min="1" value="500" placeholder="height" id="size-height-input" style="width: 75px" required/>
 					<button type="submit" form="size-form">Set</button>
 				</form>
 			</nav>
@@ -48,6 +48,14 @@
                 <button onclick="displayMode('colour')">Colour</button>
                 <button onclick="displayMode('heatmap')">Heatmap</button>
             </nav>
+			<br>
+			<nav>
+				<span class="info-text">Upload Image:</span>
+				<label class="btn btn-file">
+					Local File
+					<input type="file" accept="image/*" id="img-upload" onchange="loadImage()"/>
+				</label>
+			</nav>
 			<br>
             <nav>
                 <span class="info-text">Save Image:</span>
