@@ -12,6 +12,13 @@ function setRule() {
     parseRule(rule);
 }
 
+function setSizeFromForm() {
+	var width = document.getElementById('size-width-input').value;
+	var height = document.getElementById('size-height-input').value;
+
+	setSize(width, height);
+}
+
 // Modifies the rule as much as possible
 // to prevent confusing behaviour.
 function submitRuleForm() {

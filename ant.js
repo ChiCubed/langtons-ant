@@ -267,24 +267,26 @@ function togglePlay() {
 }
 
 function setSize(width, height) {
+	width = Number(width);
+	height = Number(height);
     size = {width: width, height: height};
     colCanvas.width = heatCanvas.width = size.width;
     colCanvas.height = heatCanvas.height = size.height;
+
+	var canvasContainer = document.getElementById('2d-canvas-container');
+	canvasContainer.style.height = height + 'px';
+	canvasContainer.style.maxHeight = Math.min(60, Math.floor(height / width * 80)) + 'vw';
     
     // reset ant positions
     var table = document.getElementById('ants-table');
     for (var i = 1; i < table.rows.length; ++i) {
         var row = table.rows[i];
         var pos = row.children[0];
-        pos.children[0].value = size.width / 2;
-        pos.children[1].value = size.height / 2;
+        pos.children[0].value = Math.floor(size.width / 2);
+        pos.children[1].value = Math.floor(size.height / 2);
     }
-    
-    for (var i in ants) {
-        if (ants.hasOwnProperty(i)) {
-            ants[i].pos = {x: size.width / 2, y: size.height / 2};
-        }
-    }
+
+	restart();
 }
 
 function addAnt() {
