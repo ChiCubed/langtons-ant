@@ -245,6 +245,10 @@ function start() {
 }
 
 function stepNTimes() {
+	var wasPlaying = false;
+	if (prevFrame !== null) wasPlaying = true;
+	stop();
+
     var nSteps = Number(document.getElementById('num-steps').value);
     
     // add initial ant locations to handle backwards - need to overwrite these squares as well
@@ -301,6 +305,8 @@ function stepNTimes() {
 			}
 
 			progressBar.style.display = 'none';
+
+			if (wasPlaying) start();
 
 			return;
 		}
