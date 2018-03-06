@@ -82,12 +82,12 @@ button, .btn {
             transition: padding .2s ease;
 }
 
-button:disabled {
+button:disabled, .btn-disabled {
 	color: grey;
 	border-color: grey;
 }
 
-button:disabled:hover {
+button:disabled:hover, .btn-disabled:hover {
 	color: grey;
 	cursor: default;
 
@@ -95,7 +95,7 @@ button:disabled:hover {
 	padding-right: 5px;
 }
 
-button:hover, .btn:hover {
+button:hover, .btn:not(.btn-disabled):hover {
 	color: lightblue;
 	cursor: pointer;
 
@@ -103,7 +103,7 @@ button:hover, .btn:hover {
     padding-right: 10px;
 }
 
-button:active, .btn:active {
+button:active, .btn:not(.btn-disabled):active {
 	border-color: lightblue;
 }
 
@@ -143,6 +143,34 @@ nav > .btn:first-child, nav > *:first-child {
 nav > .btn:last-child, nav > *:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+}
+
+progress {
+	width: 250px;
+	height: 20px;
+
+
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+	        appearance: none;
+
+	border: 1px solid white;
+	background: black;
+	color: white;
+	border-radius: 3px;
+}
+
+progress::-webkit-progress-bar {
+	background: black;
+	border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+	background: white;
+}
+
+progress::moz-progress-bar {
+	background: white;
 }
 
 .btn-file {

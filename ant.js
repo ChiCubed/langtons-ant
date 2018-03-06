@@ -252,21 +252,68 @@ function stepNTimes() {
     
 	var storeUpdates = (nSteps < size.width * size.height);
 
-    for (var i = 0; i < nSteps; ++i) {
-		stepOnce(storeUpdates);
+	// progress bar
+	var progressBar = document.getElementById('step-progress');
+	progressBar.style.display = '';
+	progressBar.value = 0;
+	progressBar.max = nSteps;
+
+	var c = 0;
+
+	// disable all buttons
+	var buttons = document.getElementsByTagName('button');
+	var otherButtons = document.getElementsByClassName('btn');
+	var inputs = document.getElementsByTagName('input');
+	for (var i = 0; i < buttons.length; ++i) {
+		buttons[i].disabled = true;
 	}
-    
-	if (!storeUpdates) {
-		// add every cell to list of updates
-		updates = [];
-		for (var i = 0; i < size.width; ++i) {
-			for (var j = 0; j < size.height; ++j) {
-				updates.push(getCoord({x: i, y: j}));
-			}
-		}
+	for (var i = 0; i < otherButtons.length; ++i) {
+		otherButtons[i].classList.add('btn-disabled');
+	}
+	for (var i = 0; i < inputs.length; ++i) {
+		inputs[i].disabled = true;
 	}
 
-    renderUpdates();
+	function renderBlock() {
+		if (c >= nSteps) {
+			// we done
+			if (!storeUpdates) {
+				// add every cell to list of updates
+				updates = [];
+				for (var i = 0; i < size.width; ++i) {
+					for (var j = 0; j < size.height; ++j) {
+						updates.push(getCoord({x: i, y: j}));
+					}
+				}
+			}
+
+			renderUpdates();
+
+			// enable buttons
+			for (var i = 0; i < buttons.length; ++i) {
+				buttons[i].disabled = false;
+			}
+			for (var i = 0; i < otherButtons.length; ++i) {
+				otherButtons[i].classList.remove('btn-disabled');
+			}
+			for (var i = 0; i < inputs.length; ++i) {
+				inputs[i].disabled = false;
+			}
+
+			progressBar.style.display = 'none';
+
+			return;
+		}
+
+		for (var j = c; j < Math.min(c + 50000, nSteps); ++j) {
+			stepOnce(storeUpdates);
+		}
+
+		c = Math.min(c + 50000, nSteps);
+		progressBar.value = c;
+		setTimeout(renderBlock, 1);
+	}
+	renderBlock();
 }
 
 function togglePlay() {
