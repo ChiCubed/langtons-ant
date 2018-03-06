@@ -257,10 +257,13 @@ function stepNTimes() {
 	var storeUpdates = (nSteps < size.width * size.height);
 
 	// progress bar
+	var progressBarContainer = document.getElementById('step-progress-container');
 	var progressBar = document.getElementById('step-progress');
-	progressBar.style.display = '';
+	var progressText = document.getElementById('step-progress-text');
+	progressBarContainer.style.display = '';
 	progressBar.value = 0;
 	progressBar.max = nSteps;
+	progressText.innerHTML = '0%';
 
 	var c = 0;
 
@@ -277,6 +280,8 @@ function stepNTimes() {
 	for (var i = 0; i < inputs.length; ++i) {
 		inputs[i].disabled = true;
 	}
+
+	var blockSize = 100000;
 
 	function renderBlock() {
 		if (c >= nSteps) {
@@ -304,19 +309,21 @@ function stepNTimes() {
 				inputs[i].disabled = false;
 			}
 
-			progressBar.style.display = 'none';
+			progressBarContainer.style.display = 'none';
 
 			if (wasPlaying) start();
 
 			return;
 		}
 
-		for (var j = c; j < Math.min(c + 50000, nSteps); ++j) {
+		for (var j = c; j < Math.min(c + blockSize, nSteps); ++j) {
 			stepOnce(storeUpdates);
 		}
 
-		c = Math.min(c + 50000, nSteps);
+		c = Math.min(c + blockSize, nSteps);
 		progressBar.value = c;
+		progressText.innerHTML = Math.floor(c * 100 / nSteps) + '%';
+
 		setTimeout(renderBlock, 1);
 	}
 	renderBlock();

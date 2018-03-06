@@ -149,7 +149,6 @@ progress {
 	width: 250px;
 	height: 20px;
 
-
 	-webkit-appearance: none;
 	   -moz-appearance: none;
 	        appearance: none;
@@ -171,6 +170,32 @@ progress::-webkit-progress-value {
 
 progress::moz-progress-bar {
 	background: white;
+}
+
+#step-progress-container {
+	width: 250px;
+	height: 20px;
+	position: relative;
+	margin: 0 auto;
+}
+
+#step-progress-container progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+#step-progress-container span {
+	position: absolute;
+	left: 0;
+	right: 0;
+
+	color: white;
+	mix-blend-mode: difference;
+
+	font-family: Roboto;
+	font-size: 14px;
+	text-align: center;
 }
 
 .btn-file {
@@ -210,7 +235,6 @@ input {
 canvas {
 	max-width: 100%;
 	max-height: 100%;
-    outline: 1px solid white;
 }
 
 @media (max-width: 800px) {

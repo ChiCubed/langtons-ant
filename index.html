@@ -28,7 +28,10 @@
                     <input type="number" id="num-steps" min="1" max="1000000000" step="1" value="1"/>
                 </form>
             </nav>
-			<progress id="step-progress" style="display: none; margin-bottom: 20px;"></progress>
+			<div id="step-progress-container" style="display: none; margin-bottom: 20px;">
+				<progress id="step-progress"></progress>
+				<span id="step-progress-text">0%</span>
+			</div>
             <nav>
                 <form onsubmit="setRule(); return false" id="rule-form">
                     <span class="info-text">Enter a rule:</span>
