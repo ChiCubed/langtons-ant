@@ -18,6 +18,9 @@ var direction;
 
 var size = { width: 500, height: 500 };
 
+var recordingCol = false, startedRecording, stopPlaying;
+var colCapturer;
+
 var antid = 0; // unique id for every ant
 
 function getCoord(pos) { return pos.y * size.width + pos.x; }
@@ -153,7 +156,19 @@ function render(time) {
     
     currFrame++;
     
-    prevFrame = requestAnimationFrame(render);
+    if (!stopPlaying) {
+        prevFrame = requestAnimationFrame(render);
+
+        if (recordingCol && !startedRecording) {
+            startedRecording = true;
+            colCapturer.start();
+        }
+        if (recordingCol) colCapturer.capture(colCanvas);
+    } else {
+        stopPlaying = false;
+        colCapturer.stop();
+        startedRecording = false;
+    }
 }
 
 function clearCanvases() {
@@ -219,6 +234,8 @@ function invertAnts() {
 function stop() {
     if (prevFrame !== null) cancelAnimationFrame(prevFrame);
     prevFrame = null;
+    stopPlaying = true;
+
     lastRenderFrame = -1000000;
 }
 
@@ -240,6 +257,7 @@ function restart() {
 
 function start() {
     stop(); // just to make sure
+    stopPlaying = false;
     
     prevFrame = requestAnimationFrame(render);
 }
@@ -337,6 +355,21 @@ function togglePlay() {
     } else {
         toggleButton.innerHTML = 'Stop';
         start();
+    }
+}
+
+function toggleRecordCol() {
+    var btn = document.getElementById('record-col-btn');
+    if (recordingCol) {
+        btn.innerHTML = 'Colour';
+        recordingCol = false;
+
+        colCapturer.stop();
+        colCapturer.save();
+    } else {
+        btn.innerHTML = 'Stop';
+        recordingCol = true;
+        startedRecording = false;
     }
 }
 
@@ -498,6 +531,15 @@ function init() {
     logIterationsPerFrame = 0;
     direction = 'forwards';
     
+    stopPlaying = false;
+
+    recordingCol = false;
+    colCapturer = new CCapture({
+        framerate: 30,
+        format: 'webm',
+        name: 'col'
+    });
+
     currFrame = 0;
     lastRenderFrame = -1000000;
     
